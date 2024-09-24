@@ -8,15 +8,13 @@ from scipy.interpolate import interp1d
 from matplotlib.lines import Line2D
 
 """
-code for calculating the timedevelopment of chemicals in the random chemical reaction network 
-with simple Gillespie algorithm 
-and plotting the result
+code for calculating the time development of states in the one-compartment stochastic SIR model
 """
 
 
 class SIR_Gillespie:
     """
-    class for developing the chemical over time
+    class for the one-compartment stochastic SIR model
         
     parameters:
         N: int
@@ -45,12 +43,12 @@ class SIR_Gillespie:
             threshold for major outbreak
     
     Returns:
-        time_section: numpy array
-            time points which a reaction fires
-        chemical_development: numpy array (N,len(time_section))
-            number of chemicals at each time point
-        conc: numpy array (N,len(time_section))
-            concentration of chemicals at each time point
+        cluster_size: numpy array (1 by sample_num)
+            the size of the outbreak
+        interpolant_time: numpy array (1 by time_end*10)
+            the time points for interpolation
+        mean_chemical_states: numpy array (time_end*10 by 3)
+            the mean of the chemical states given there is a major outbreak (R[-1] > threshold_minor)
 
 
     """
@@ -92,7 +90,7 @@ class SIR_Gillespie:
         chemical_development = np.zeros((3,1))
         self.state = np.copy(self.init_state)
         chemical_development[:,0] = self.state
-        time_section = []
+        time_section = [] # to store the time points (to interpolate later)
         time = 0
         time_section.append(time)
         self.inf_end = 0
@@ -134,9 +132,7 @@ class SIR_Gillespie:
         for i in range(self.sample_num):
             print(i)
             chemical_development, time_section = self.gillespie()
-            cluster_size.append(self.state[2])
-            #print(time_section)
-            #print(chemical_development)
+            cluster_size.append(self.state[2]) 
             f = interp1d(time_section,chemical_development,kind="nearest",axis = 1)
             interpolated = f(self.interpolant_time)
 
@@ -144,8 +140,6 @@ class SIR_Gillespie:
                 # in other words, if the trajectory lead to a major outbreak 
                 self.samples.append(np.transpose(interpolated))
             self.inf_end_list.append(self.inf_end)
-        
-        #print(len(self.samples))
         
         self.samples = np.array(self.samples)
         self.inf_end = np.max(self.inf_end_list)
