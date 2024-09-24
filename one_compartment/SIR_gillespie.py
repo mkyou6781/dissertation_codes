@@ -125,9 +125,9 @@ class SIR_Gillespie:
         return np.array(chemical_development), np.array(time_section)
     
     def sampling(self):
-        cluster_size = []
-        self.inf_end_list = []
-        self.samples = []
+        cluster_size = [] # to store the size of the outbreak
+        self.inf_end_list = [] # to store the time of the infection dies out
+        self.samples = [] # to store the sample trajectories given there is a major outbreak
         self.interpolant_time = np.linspace(0,self.time_end,self.time_end*10)
         for i in range(self.sample_num):
             print(i)
