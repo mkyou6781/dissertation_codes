@@ -49,7 +49,7 @@ class N_Comp_Gillespie:
         inf_end_list: list
             the list of the time at which the infection dies out
         samples: numpy array (N by length of interpolant_time)
-            the sample trajectories given there is a major outbreak
+            the sample trajectories (interpolated) given there is a major outbreak
     """
     def __init__(self,init_state,time_end,sample_num, beta,gamma,volume, epsilon, threshold_minor,N,sample_time_criteria=[0]):
         self.init_state = init_state # two dimensional array
