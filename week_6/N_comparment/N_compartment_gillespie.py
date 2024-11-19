@@ -7,7 +7,7 @@ from scipy import sparse
 
 
 """
-code for calculating the timedevelopment of chemicals in the multi-compartment SIR model inscribed in the complete network with size N with simple Gillespie algorithm 
+class for calculating the timedevelopment of chemicals in the multi-compartment SIR model inscribed in the complete network with size N with simple Gillespie algorithm 
 Note: the state is expressed with numpy array with the following format [S_1, ...S_N, I_1, ..., I_N, R_1, ..., R_N]
 """
 
