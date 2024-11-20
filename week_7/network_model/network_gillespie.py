@@ -47,7 +47,7 @@ class Network_Gillespie:
         degree: int (default: None)
             the degree of the random network (only valid when ```network_type''' is "random")
         adj_matrix: scipy.sparse.coo_matrix (default: None)
-            the adjacent matrix of the network, which is input externally. Because only random network and "two-community" networks are probabilistic, the variable is only valid when ```network_type''' is "two-community" or "random"
+            the adjacent matrix of the network, which is input externally. Because only random network and "two-community" networks are probabilistic, the variable is only valid when ```network_type''' is "two-community" or "random". Note that the network needs to be unweighted (without epsilon distributed)
         degree1: int (default: None)
             the internal degree of the first community (only valid when ```network_type''' is "two-community")
         degree2: int (default: None)
@@ -365,5 +365,3 @@ class Network_Gillespie:
         mean_chemical_states = np.mean(self.samples,axis = 0)
         self.infected_num_total = np.sum(np.mean(infected_num,axis = 1)) # note that the name of this variable is rather confusing. Please refer to the explanation of the variable ```infected_num_total'''
         return outbreak_size, mean_chemical_states
-        
-
