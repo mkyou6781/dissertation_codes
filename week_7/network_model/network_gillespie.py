@@ -358,7 +358,7 @@ class Network_Gillespie:
             self.inf_end_list.append(self.end)
             
         self.inf_end = np.max(self.inf_end_list)
-        print("inf_end",self.inf_end) # sanity check. Refer to the explanation of the variable ```inf_end'''
+        print("inf_end",self.inf_end, "set end time", self.time_end) # sanity check. Refer to the explanation of the variable ```inf_end'''
         self.samples = np.array(self.samples)
         if len(self.samples) == 0:
             raise ValueError("samples are empty")
